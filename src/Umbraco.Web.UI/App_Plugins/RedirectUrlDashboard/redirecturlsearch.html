@@ -1,0 +1,28 @@
+﻿<div class="redirecturlsearch" ng-controller="Umbraco.RedirectUrlSearch">
+    <h2>Redirect Url Search</h2>
+    <p>When you move and rename pages in Umbraco, 301 permanent redirects are automatically created</p>
+    <p>Here is a list of the redirects</p>
+    <!--<div class="control-group umb-control-group"> 
+            <div class="umb-el-wrap">
+              <label class="control-label" for="searchTerm">
+                  Search Url:                  
+                </label>
+                <div class="controls controls-row">
+                    <input name="searchTerm" type="text" ng-model="searchTerm" no-dirty-check class="col-md-12" /> <button class="btn btn-primary" ng-click="search()">Search</button>
+                 </div>
+            </div>
+        </div>-->
+    <div ng-bind="StatusMessage"></div>
+    <table ng-show="hasResults" class="table table-hover">
+        <tr><th>Original Url</th><th>Redirected To</th><th>Date Created</th><th>Remove</th></tr>
+        <tbody>
+    <tr class="redirecturls-search-result" ng-repeat="redirectUrl in redirectUrls">
+  
+        <td><a href="{{redirectUrl.Url}}">{{redirectUrl.Url}}</a></td><td><a href="{{redirectUrl.ContentUrl}}">{{redirectUrl.ContentUrl}}</a> <a title="edit item" href="/umbraco/#/content/content/edit/{{redirectUrl.ContentId}}"><i class="icon icon-edit"></i></a></td><td>{{redirectUrl.CreateDateUtc | date:'medium'}}</td><td><button class="btn btn-small btn-primary" ng-click="removeRedirect(redirectUrl)">Remove</button></td>
+
+    </tr>
+            </tbody>
+  </table>
+
+
+  

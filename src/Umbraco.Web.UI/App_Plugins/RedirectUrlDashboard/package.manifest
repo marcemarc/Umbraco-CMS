@@ -1,0 +1,9 @@
+﻿{
+ 	"$schema": "/App_Plugins/manifestSchema.json",
+	"javascript":[
+		"~/app_plugins/redirecturldashboard/redirecturlsearch.controller.js"
+
+	],
+	"css" : [
+	]
+}
