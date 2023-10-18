@@ -33,6 +33,8 @@ angular.module("umbraco").controller("Umbraco.Editors.LinkPickerController",
             selectedSearchResults: []
         };
 
+        $scope.userLinkNameInput = '';
+
         $scope.showTarget = $scope.model.hideTarget !== true;
         $scope.showAnchor = $scope.model.hideAnchor !== true;
 
@@ -142,8 +144,10 @@ angular.module("umbraco").controller("Umbraco.Editors.LinkPickerController",
             $scope.currentNode = args.node;
             $scope.currentNode.selected = true;
             $scope.model.target.id = args.node.id;
-            $scope.model.target.udi = args.node.udi;
+          $scope.model.target.udi = args.node.udi;
+          if ($scope.oKToUpdateLinkTargetName()) {
             $scope.model.target.name = args.node.name;
+          }
 
             if (args.node.id < 0) {
                 $scope.model.target.url = "/";
@@ -168,6 +172,19 @@ angular.module("umbraco").controller("Umbraco.Editors.LinkPickerController",
             }
         }
 
+      $scope.trackUserInput = function (userInput) {
+        $scope.userLinkNameInput = userInput;
+
+      }
+      $scope.oKToUpdateLinkName = function () {
+        if (!$scope.userLinkNameInput || !model.target.name) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+
         $scope.switchToMediaPicker = function () {
             userService.getCurrentUser().then(function (userData) {
 
@@ -191,7 +208,9 @@ angular.module("umbraco").controller("Umbraco.Editors.LinkPickerController",
                         $scope.model.target.id = media.id;
                         $scope.model.target.udi = media.udi;
                         $scope.model.target.isMedia = true;
-                        $scope.model.target.name = media.name;
+                        if ($scope.oKToUpdateLinkTargetName()) {
+                          $scope.model.target.name = media.name;
+                        }
                         $scope.model.target.url = media.image;
 
                         editorService.close();
